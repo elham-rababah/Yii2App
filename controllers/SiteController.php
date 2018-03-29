@@ -78,14 +78,15 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $user = $model->login();
-            //echo $user->type;die;;
             if($user->type === "Uploader"){
-                //Uploader
-                return $this->render('about');
+                //uploader
+                return $this->render('uploader', [
+                    'foo' => 1,
+                    'bar' => 2,
+                    ]);
             } else {
                 //moderator
-                echo "moderator page"; die;
-                //return $this->render('index');
+                return $this->render('moderator');
 
             }
         }
