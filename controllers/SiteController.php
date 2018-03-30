@@ -79,9 +79,9 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $user = $model->login();
+            $UserImageModel = new UserImage();
             if($user->type === "Uploader"){
                 //uploader
-                $UserImageModel = new UserImage();
                 $dataProvider = $UserImageModel->findImagesByUserID($user->Id);
                 //print_r($dataProvider);die;
 
@@ -90,7 +90,10 @@ class SiteController extends Controller
                     ]);
             } else {
                 //moderator
-                return $this->render('moderator');
+                $dataProvider = $UserImageModel->findImagesByUserID();
+                return $this->render('moderator', [
+                    'dataProvider' => $dataProvider,
+                    ]);
 
             }
         }

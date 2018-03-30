@@ -18,15 +18,17 @@ class UserImage  extends \yii\db\ActiveRecord
         return 'images';
     }
 
-    public static function findImagesByUserID($userId)
+    public static function findImagesByUserID($userId = null)
     {   
-        //echo "$userId ";die;
+        if(!$userId){
+            $whereArr = [];
+        } else {
+            $whereArr = ['userId' => $userId];
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => self::find()->where([
-                'userId' => $userId
-            ]),
+            'query' => self::find()->where($whereArr),
             'pagination' => [
-            'pageSize' => 5,
+            'pageSize' => 3,
             ],
             ]);
 
