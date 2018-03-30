@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\UserImage;
 
 class SiteController extends Controller
 {
@@ -80,9 +81,12 @@ class SiteController extends Controller
             $user = $model->login();
             if($user->type === "Uploader"){
                 //uploader
+                $UserImageModel = new UserImage();
+                $dataProvider = $UserImageModel->findImagesByUserID($user->Id);
+                //print_r($dataProvider);die;
+
                 return $this->render('uploader', [
-                    'foo' => 1,
-                    'bar' => 2,
+                    'dataProvider' => $dataProvider,
                     ]);
             } else {
                 //moderator
