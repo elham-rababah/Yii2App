@@ -61,7 +61,8 @@ class SiteController extends Controller
      * @return string
      */
     public function actionApprove()
-    {   $UserImageModel = new UserImage();
+    {   
+        $UserImageModel = new UserImage();
         $imageId = Yii::$app->request->get()['id'];
         $UserImageModel->updateImagesStatus($imageId,'Approve');
         //$userId = Yii::$app->session['user']->Id ;
@@ -79,11 +80,15 @@ class SiteController extends Controller
      */
     public function actionReject()
     {
+        $UserImageModel = new UserImage();
         $imageId = Yii::$app->request->get()['id'];
-        echo "$imageId";
-        $UserImageModel->updateImagesStatus($imageId);
-        print_r(Yii::$app->request->get());
-        echo "string";die;
+        $UserImageModel->updateImagesStatus($imageId,'Reject');
+        //$userId = Yii::$app->session['user']->Id ;
+        $dataProvider = $UserImageModel->findImagesByUserID();
+        return $this->render('moderator', [
+            'dataProvider' => $dataProvider
+            ]);
+        
     }
 
 
