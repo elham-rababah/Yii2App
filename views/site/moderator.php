@@ -1,9 +1,11 @@
 <?php
 
 /* @var $this yii\web\View */
-
+//https://stackoverflow.com/questions/22838511/bulk-action-in-yii-grid-view
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
+
 
 
 $this->title = 'Moderator';
@@ -41,8 +43,45 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'Created Date'
         ],
         // 'isactive',
-        ['class' => 'yii\grid\ActionColumn'],
+         [
+            'class' => 'yii\grid\ActionColumn',
+            'header'=>'Action', 
+            'headerOptions' => ['width' => '80'],
+            'template' => '{approve} {reject}',
+            'buttons' => [
+                'approve' => function ($url,$model) {
+                    return Html::a(
+                        '<span 
+                        	onclick="approveAction()"
+                        	title="approve"
+                        	class="glyphicon
+                        	glyphicon-thumbs-up">
+                       	</span>', 
+                       	$url);
+                },
+                'reject' => function ($url,$model,$key) {
+                    return Html::a(
+                    	'<span 
+                    		onclick="rejectAction()"
+                    		title="reject" 
+                    		class="glyphicon
+                    		glyphicon-thumbs-down">
+                    		</span>',
+                    		 $url);
+                },
+	        ],
+        ],
     ],
     ]);
     ?>
 </div>
+<script>
+    function approveAction() {
+        window.location.href='<?php echo Url::to(['SiteController/actionApprove']); ?>';
+
+    }
+    function rejectAction() {
+        window.location.href='<?php echo Url::to(['SiteController/actionReject']); ?>';
+
+    }
+</script>

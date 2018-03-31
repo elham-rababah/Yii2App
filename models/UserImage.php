@@ -17,7 +17,11 @@ class UserImage  extends \yii\db\ActiveRecord
     {
         return 'images';
     }
+    
 
+    /**
+     * Find Images Based on UserID
+     */
     public static function findImagesByUserID($userId = null)
     {   
         if(!$userId){
@@ -31,9 +35,18 @@ class UserImage  extends \yii\db\ActiveRecord
             'pageSize' => 3,
             ],
             ]);
-
-        //print_r($dataProvider);die;
         return $dataProvider;
 
+    }
+
+    /**
+     * update image status 
+     */
+    public static function updateImagesStatus($imageId,$status)
+    {
+        $image = self::findOne($imageId);
+        $image->status = $status;
+        //echo $image->update();die;
+        return $image->update();
     }
 }
