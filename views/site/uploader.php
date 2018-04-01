@@ -12,6 +12,7 @@ use yii\helpers\Url;
 $this->title = 'Uploader';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>  
     <?= GridView::widget([

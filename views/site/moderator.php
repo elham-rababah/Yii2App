@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'text',
             'label' => 'ID'
         ],
-        [
+        [  
             'attribute' => 'url',
             'format' => 'text',
             'label' => 'Image',
