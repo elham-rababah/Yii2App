@@ -4,6 +4,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 
 
@@ -46,3 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
 </div>
+<script>
+    function approveAction() {
+        alert("test test");
+        window.location.href='<?php echo Url::to(['SiteController/actionUpload']); ?>';
+
+    }
+</script>

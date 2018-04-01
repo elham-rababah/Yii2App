@@ -1,7 +1,6 @@
 <?php
 
 /* @var $this yii\web\View */
-//https://stackoverflow.com/questions/22838511/bulk-action-in-yii-grid-view
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;

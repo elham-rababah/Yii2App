@@ -49,4 +49,16 @@ class UserImage  extends \yii\db\ActiveRecord
         //echo $image->update();die;
         return $image->update();
     }
+
+    /**
+     * insert image status 
+     */
+    public static function insertImage($imageInfo)
+    {
+        $image = new UserImage();
+        $image->userId = $imageInfo['userId'];
+        $image->status = $imageInfo['status'];
+        $image->url = $imageInfo['url'];
+        return $image->save();
+    }
 }

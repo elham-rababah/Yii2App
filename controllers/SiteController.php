@@ -10,6 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\UserImage;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
+
+
 
 class SiteController extends Controller
 {
@@ -92,13 +96,45 @@ class SiteController extends Controller
     }
 
 
+    public function actionUpload()
+    {
+
+        $model = new UploadForm();
+        $message = '';
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                $userId = Yii::$app->session['user']->Id ;
+                $imageInfo = array(
+                    'userId' => $userId,
+                    'url' => $model->imageFile->name,
+                    'status'=> 'Pending'
+                    );
+                $UserImageModel = new UserImage();
+                if ($UserImageModel->insertImage($imageInfo)){
+                    $message = "You have successfully Upload your photo";
+                } else {
+                    $message = "You photo not uploaded";
+                }
+
+
+            }
+        }
+
+        return $this->render('upload', [
+            'model' => $model,
+            'message'=> $message,
+            ]);
+    }
+
+
     /**
      * Displays homepage.
      *
      * @return string
      */
     public function actionIndex()
-    {
+    {   
         return $this->render('index');
     }
 
@@ -109,6 +145,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

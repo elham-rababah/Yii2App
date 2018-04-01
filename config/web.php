@@ -54,7 +54,10 @@ $config = [
         'thumbnailer' => [
         'class' => 'daxslab\thumbnailer\Thumbnailer',
         'defaultWidth' => 50,
-        'defaultHeight' => 100
+        'defaultHeight' => 100,
+
+        //'thumbnailsBaseUrl' => './uploads',
+
         ],
     ],
     'params' => $params,
